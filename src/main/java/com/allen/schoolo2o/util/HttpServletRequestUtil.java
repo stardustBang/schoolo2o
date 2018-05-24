@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 作者 : Allen
  * @version 创建时间：2018年5月23日 下午9:31:30
  */
-public class HttpServicRequestUtil {
+public class HttpServletRequestUtil {
 
 	public static int getInt(HttpServletRequest request, String key) {
 		try {

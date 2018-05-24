@@ -48,9 +48,9 @@
 		</property>
 	</bean>
 	<!-- 4.扫描web相关的bean -->
-	<context:component-scan base-package="com.imooc.myo2o.web" />
+	<context:component-scan base-package="com.allen.schoolo2o.controller" />
 	<!-- 5.权限拦截器 -->
-	<mvc:interceptors>
+	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/shop/**" />
 			<mvc:exclude-mapping path="/shop/ownerlogin" />
@@ -64,19 +64,19 @@
 			<mvc:exclude-mapping path="/shop/ownerlogin" />
 			<mvc:exclude-mapping path="/shop/ownerlogincheck" />
 			<mvc:exclude-mapping path="/shop/register" />
-			<!-- shoplist page -->
+			shoplist page
 			<mvc:exclude-mapping path="/shop/shoplist" />
 			<mvc:exclude-mapping path="/shop/logout" />
 			<mvc:exclude-mapping path="/shop/list" />
-			<!-- changepsw page -->
+			changepsw page
 			<mvc:exclude-mapping path="/shop/changepsw" />
 			<mvc:exclude-mapping path="/shop/changelocalpwd" />							
-			<!-- ownerbind page -->
+			ownerbind page
 			<mvc:exclude-mapping path="/shop/ownerbind" />
 			<mvc:exclude-mapping path="/shop/bindlocalauth" />
-			<!-- shopmanage page -->
+			shopmanage page
 			<mvc:exclude-mapping path="/shop/shopmanage" />
-			<!-- shopedit page -->
+			shopedit page
 			<mvc:exclude-mapping path="/shop/shopedit" />
 			<mvc:exclude-mapping path="/shop/getshopbyid" />
 			<mvc:exclude-mapping path="/shop/getshopinitinfo" />
@@ -94,5 +94,5 @@
 				class="com.allen.schoolo2o.interceptor.superadmin.SuperAdminLoginInterceptor" />
 		</mvc:interceptor>
 
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 </beans>
