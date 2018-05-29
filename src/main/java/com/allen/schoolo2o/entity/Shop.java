@@ -2,15 +2,15 @@ package com.allen.schoolo2o.entity;
 
 import java.util.Date;
 
-
 /**
  * @author Allen
  *
- * 2018��5��5�� ����8:03:19
+ *         2018��5��5�� ����8:03:19
  */
 public class Shop {
 
 	private Long shopId;
+	private Long ownerId;
 	private String shopName;
 	private String shopDesc;
 	private String shopAddr;
@@ -21,9 +21,8 @@ public class Shop {
 	private Date createTime;
 	private Date lastEditTime;
 
-	
 	private Integer enableStatus;
-	
+
 	private String advice;
 
 	private Area area;
@@ -36,6 +35,14 @@ public class Shop {
 
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getShopName() {

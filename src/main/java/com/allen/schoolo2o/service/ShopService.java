@@ -10,6 +10,11 @@ import com.allen.schoolo2o.dto.ShopExecution;
 import com.allen.schoolo2o.entity.Shop;
 
 public interface ShopService {
+	
+	
+	Shop getShopByShopId(long shopId);
+	
+	ShopExecution modifyShop(Shop shop, InputStream shopImg, String fileName);
 
 	ShopExecution addShop(Shop shop, InputStream shopImg, String fileName);
 

@@ -75,6 +75,20 @@ public class ImageUtil {
 	}
 	
 	
+	public static void deleteFileOrPath(String storePath) {
+		File fileOrPath=new File(PathUtil.getImgBasePath()+storePath);
+		if(fileOrPath.exists()) {
+			File files[] =fileOrPath.listFiles();
+			for(int i=0;i< files.length;i++) {
+				files[0].delete();
+			}
+			fileOrPath.delete();
+		}
+		
+		
+	}
+	
+	
 	/*
 	public static void main(String[] args) throws IOException {
 
