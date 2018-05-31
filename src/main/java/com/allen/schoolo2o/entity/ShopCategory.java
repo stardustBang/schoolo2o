@@ -1,7 +1,7 @@
 package com.allen.schoolo2o.entity; 
 /** 
-* @author ×÷Õß : Allen
-* @version ´´½¨Ê±¼ä£º2018Äê5ÔÂ5ÈÕ ÏÂÎç7:52:26 
+* @author ï¿½ï¿½ï¿½ï¿½ : Allen
+* @version ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º2018ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7:52:26 
 */
 
 import java.util.Date;

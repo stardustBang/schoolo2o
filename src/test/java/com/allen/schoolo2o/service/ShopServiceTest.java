@@ -1,15 +1,19 @@
 package com.allen.schoolo2o.service;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.allen.schoolo2o.BaseTest;
+import com.allen.schoolo2o.dto.ShopExecution;
 import com.allen.schoolo2o.entity.Area;
 import com.allen.schoolo2o.entity.PersonInfo;
 import com.allen.schoolo2o.entity.Shop;
@@ -25,7 +29,22 @@ public class ShopServiceTest extends BaseTest{
 	private ShopService service;
 	
 	@Test
-	public void testAddShopTest() throws FileNotFoundException {
+	public void testUpdateShop() throws FileNotFoundException {
+		Shop shop=new Shop();
+		
+		shop.setShopId(2L);
+		
+		shop.setShopName("正式的店铺");
+				
+		File file =new File("H:/image/pong.png");
+		InputStream is=new FileInputStream(file);
+		service.modifyShop(shop,is,file.getName());
+		
+	}
+	 
+	@Test
+	@Ignore
+	public void testAddShop() throws FileNotFoundException {
 		Shop shop=new Shop();
 		PersonInfo owner=new PersonInfo();
 		owner.setUserId(8L);
@@ -34,7 +53,7 @@ public class ShopServiceTest extends BaseTest{
 		ShopCategory shopcategory=new ShopCategory();
 		shopcategory.setShopCategoryId(14L);
 		
-		shop.setOwner(owner);
+		//shop.setOwner(owner);
 		shop.setArea(area);
 		shop.setShopCategory(shopcategory);
 		shop.setShopName("冰");

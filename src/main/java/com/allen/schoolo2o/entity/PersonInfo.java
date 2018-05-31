@@ -3,28 +3,28 @@ package com.allen.schoolo2o.entity;
 import java.util.Date;
 
 /** 
-* @author ×÷Õß : Allen
-* @version ´´½¨Ê±¼ä£º2018Äê5ÔÂ5ÈÕ ÏÂÎç7:22:39 
+* @author ï¿½ï¿½ï¿½ï¿½ : Allen
+* @version ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º2018ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7:22:39 
 */
 public class PersonInfo {
 	
 	private Long userId;
 	 
-	private String username;
+	private String name;
 	
 	private String email;
 	
 	private String gender;
 	
 	//×´Ì¬
-	//0:½ûÖ¹Ê¹ÓÃ±¾ÉÌ³Ç   1£ºÔÊĞíÊ¹ÓÃ±¾ÉÌ³Ç
+	//0:ä¸å¯ç”¨   1ï¼šå¯ç”¨å•†åŸ
 	private Integer enableStatus;
 	
-	//Í·Ïñ
+	
 	private String profileImg;
     
-	//ÓÃ»§µÄÉí·İ±êÊ¶
-	//1.¹Ë¿Í   2.µê¼Ò 3.³¬¼¶¹ÜÀíÔ±
+	
+	//1.é¡¾å®¢   2.åº—å®¶ 3.è¶…çº§ç®¡ç†å‘˜
 	private Integer userType;
 	
 	private Date createTime;
@@ -57,12 +57,14 @@ public class PersonInfo {
 		this.lastEditTime = lastEditTime;
 	}
 
-	public String getUsername() {
-		return username;
+	
+
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {

@@ -3,28 +3,27 @@ package com.allen.schoolo2o.entity;
 import java.util.Date;
 import java.util.List;
 
-
-/** 
-* @author ×÷Õß : Allen
-* @version ´´½¨Ê±¼ä£º2018Äê5ÔÂ5ÈÕ ÏÂÎç8:26:38 
-*/
+/**
+ * @author ï¿½ï¿½ï¿½ï¿½ : Allen
+ * @version ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º2018ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½8:26:38
+ */
 public class Product {
-	
+
 	private Long productId;
 	private String productName;
 	private String productDesc;
-	
-	// ¼òÂÔÍ¼
+
+	// ç®€ç•¥å›¾
 	private String imgAddr;
 	private String normalPrice;
 	private String promotionPrice;
 	private Integer priority;
 	private Date createTime;
 	private Date lastEditTime;
-	
-	//0: ÏÂ¼Ü   1£ºÔÚÇ°¶ËÕ¹Ê¾ÏµÍ³Õ¹Ê¾
+
+	// 0ï¼šä¸‹æ¶ 1ï¼šåœ¨å‰ç«¯å±•ç¤ºç³»ç»Ÿå±•ç¤º
 	private Integer enableStatus;
-	
+
 	private List<ProductImg> productImgList;
 	private ProductCategory productCategory;
 	private Shop shop;
@@ -109,8 +108,6 @@ public class Product {
 		this.enableStatus = enableStatus;
 	}
 
-	
-
 	public List<ProductImg> getProductImgList() {
 		return productImgList;
 	}
@@ -136,4 +133,3 @@ public class Product {
 	}
 
 }
- 

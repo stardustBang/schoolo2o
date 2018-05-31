@@ -8,7 +8,7 @@ import com.allen.schoolo2o.entity.Shop;
 */
 public interface ShopDao {
 	
-	Shop queryByShopId(long shopId);
+	Shop queryByShopId(Long shopId);
 	
 	int insertShop(Shop shop);
 	

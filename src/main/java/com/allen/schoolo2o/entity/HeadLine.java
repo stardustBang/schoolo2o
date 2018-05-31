@@ -3,8 +3,8 @@ package com.allen.schoolo2o.entity;
 import java.util.Date;
 
 /** 
-* @author ×÷Õß : Allen
-* @version ´´½¨Ê±¼ä£º2018Äê5ÔÂ5ÈÕ ÏÂÎç7:47:05 
+* @author ï¿½ï¿½ï¿½ï¿½ : Allen
+* @version ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º2018ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7:47:05 
 */
 public class HeadLine {
 	
@@ -12,7 +12,7 @@ public class HeadLine {
 	
 	private String lineName;
 	
-	//Á´½Ó
+	//ï¿½ï¿½ï¿½ï¿½
 	private String lineLink;
 	
 	//Í¼Æ¬
@@ -20,7 +20,7 @@ public class HeadLine {
 
 	private Integer priority;
 	
-	//0:²»¿ÉÓÃ  1£º¿ÉÓÃ
+	//0:å¯ç”¨  1.ä¸å¯ç”¨
 	private Integer enableStatus;
 	
 	private Date createTime;

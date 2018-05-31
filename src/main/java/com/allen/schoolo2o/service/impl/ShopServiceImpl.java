@@ -1,13 +1,13 @@
 package com.allen.schoolo2o.service.impl;
 
-import java.io.File;
+
 import java.io.InputStream;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 import com.allen.schoolo2o.dao.ShopDao;
 import com.allen.schoolo2o.dto.ShopExecution;
@@ -80,21 +80,23 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.queryByShopId(shopId);
 	}
 
+	
 	@Override
 	public ShopExecution modifyShop(Shop shop, InputStream shopImg, String fileName) {
-		try {
-			if (shop == null && shop.getShopId() == null) {
-				return new ShopExecution(ShopStateEnum.NULL_SHOP_INFO);
-			} else {
-				//判断是否需要处理图片
+		if (shop == null || shop.getShopId() == null) {
+			return new ShopExecution(ShopStateEnum.NULL_SHOP_INFO);
+		} else {
+			try {
+				// 判断是否需要处理图片
 				if (shopImg != null && fileName != null && !"".equals(fileName)) {
 					Shop tempShop = shopDao.queryByShopId(shop.getShopId());
 					if (tempShop.getShopImg() != null) {
+						
 						ImageUtil.deleteFileOrPath(tempShop.getShopImg());
 					}
 					addShopImg(shop, shopImg, fileName);
 				}
-				//更新店铺信息
+				// 更新店铺信息
 				shop.setLastEditTime(new Date());
 				int effectedNum = shopDao.updateShop(shop);
 				if (effectedNum <= 0) {
@@ -103,9 +105,10 @@ public class ShopServiceImpl implements ShopService {
 					shop = shopDao.queryByShopId(shop.getShopId());
 					return new ShopExecution(ShopStateEnum.SUCCESS, shop);
 				}
+			} catch (Exception e) {
+				throw new ShopOperationException("modifyShop error " + e.getMessage());
+
 			}
-		} catch (Exception e) {
-			throw new ShopOperationException("modifyShop error"+e.getMessage());
 		}
 	}
 
