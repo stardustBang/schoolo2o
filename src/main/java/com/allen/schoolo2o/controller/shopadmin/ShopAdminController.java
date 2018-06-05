@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 */
 
 @Controller
-@RequestMapping(value="/shop" , method=RequestMethod.GET)
+@RequestMapping(value="/shopadmin" , method=RequestMethod.GET)
 public class ShopAdminController {
 	
 	@RequestMapping("/shopoperation")
@@ -18,6 +18,17 @@ public class ShopAdminController {
 		return "shop/shopoperation";
 		
 	}
+	
+	@RequestMapping("/shoplist")
+	public String shopList() {
+		return "shop/shoplist";
+	}
+	
+	@RequestMapping("/shopmanagement")
+	public String shopManagement() {
+		return "shop/shopmanagement";
+	}
+
 
 }
  

@@ -11,6 +11,7 @@ import com.allen.schoolo2o.entity.Shop;
 
 public interface ShopService {
 	
+	ShopExecution getShopList(Shop shopCondition,int pageIndex,int pageSize);
 	
 	Shop getShopByShopId(long shopId);
 	

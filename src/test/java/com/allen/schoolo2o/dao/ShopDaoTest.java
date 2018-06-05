@@ -1,6 +1,7 @@
 package com.allen.schoolo2o.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,6 +22,25 @@ public class ShopDaoTest extends BaseTest{
 	@Autowired
 	private ShopDao dao;
 	
+	@Test
+	public void testQueryListAndCount() {
+		Shop shop=new Shop();
+		PersonInfo owner=new PersonInfo();
+		owner.setUserId(1L);
+		shop.setOwner(owner);
+	/*	List<Shop> shopList=dao.queryShopList(shop, 1, 3);
+		System.out.println(shopList.size());*/
+		int count=dao.queryShopCount(shop);
+		System.out.println(count);
+		
+		ShopCategory shopCategory =new ShopCategory();
+		shopCategory.setShopCategoryId(3L);
+		shop.setShopCategory(shopCategory);
+		
+		List<Shop> shopList=dao.queryShopList(shop, 0, 3);
+		System.out.println(shopList.size());
+		
+	}
 	
 	@Test
 	@Ignore
@@ -53,6 +73,7 @@ public class ShopDaoTest extends BaseTest{
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateShop() {
 		Shop shop=new Shop();
 		shop.setShopId(2L);

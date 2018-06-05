@@ -1,10 +1,10 @@
 $(function() {
 	var shopId = getQueryString('shopId');
 	var isEdit = shopId ? true : false;
-	var initUrl = '/schoolo2o/shopadmin/getshopinitinfo';
-	var registerShopUrl = '/schoolo2o/shopadmin/registershop';
-	var shopInfoUrl = '/schoolo2o/shopadmin/getshopbyid?shopId=' + shopId;
-	var editShopUrl = '/schoolo2o/shopadmin/modifyshop';
+	var initUrl = '/schoolo2o/shop/getshopinitinfo';
+	var registerShopUrl = '/schoolo2o/shop/registershop';
+	var shopInfoUrl = '/schoolo2o/shop/getshopbyid?shopId=' + shopId;
+	var editShopUrl = '/schoolo2o/shop/modifyshop';
 	if (!isEdit) {
 		getShopInitInfo();
 	} else {

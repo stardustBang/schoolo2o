@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,7 +29,21 @@ public class ShopServiceTest extends BaseTest{
 	@Autowired
 	private ShopService service;
 	
+	
 	@Test
+	public void testGetShopList() {
+		Shop shop=new Shop();
+		ShopCategory shopCategory =new ShopCategory();
+		shopCategory.setShopCategoryId(3L);
+		shop.setShopCategory(shopCategory);
+		
+		ShopExecution se=service.getShopList(shop, 1, 3);
+		System.out.println(se.getShopList().size());
+		System.out.println(se.getCount());
+	}
+	
+	@Test
+	@Ignore
 	public void testUpdateShop() throws FileNotFoundException {
 		Shop shop=new Shop();
 		
