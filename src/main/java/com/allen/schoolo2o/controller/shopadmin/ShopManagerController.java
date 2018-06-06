@@ -243,9 +243,13 @@ public class ShopManagerController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		PersonInfo user = new PersonInfo();
+		//TO be removed
 		user.setUserId(1L);
 		user.setName("test");
 		rquest.getSession().setAttribute("user", user);
+		
+		
+		
 		user = (PersonInfo) rquest.getSession().getAttribute("user");
 		try {
 			Shop shop = new Shop();
