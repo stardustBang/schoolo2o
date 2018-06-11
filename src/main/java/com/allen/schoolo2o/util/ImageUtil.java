@@ -26,7 +26,7 @@ public class ImageUtil {
 
 	private static final Random r = new Random();
 
-	public static String generateThumbnail( String targetAddr, ImageHolder imageHolder) {
+	public static String generateThumbnail(ImageHolder imageHolder,String targetAddr) {
 		String realFileName = getRandomFileName();
 		String extension = getFileExtension(imageHolder.getImageName());
 		makeDirPath(targetAddr);
@@ -36,6 +36,25 @@ public class ImageUtil {
 			Thumbnails.of(imageHolder.getImage()).size(200, 200)
 					.watermark(Positions.BOTTOM_LEFT, ImageIO.read(new File(basePath + "waterpage.png")), 0.25f)
 					.outputQuality(0.8f).toFile(dest);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return relativeAddr;
+	}
+	
+	
+	public static String generateNormalImg(ImageHolder imageHolder,String targetAddr) {
+		String realFileName = getRandomFileName();
+		String extension = getFileExtension(imageHolder.getImageName());
+		makeDirPath(targetAddr);
+		String relativeAddr = targetAddr + realFileName + extension;
+		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
+		try {
+			Thumbnails.of(imageHolder.getImage()).size(337, 640)
+					.watermark(Positions.BOTTOM_LEFT, ImageIO.read(new File(basePath + "waterpage.png")), 0.25f)
+					.outputQuality(0.9f).toFile(dest);
 
 		} catch (Exception e) {
 			e.printStackTrace();

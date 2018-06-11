@@ -9,8 +9,8 @@ package com.allen.schoolo2o.enums;
  */
 public enum ProductEnum {
 
-	SUCCESS(1, "成功"),
-
+	OFFLINE(-1, "非法商品"), SUCCESS(0, "操作成功"), PASS(2, "通过认证"), INNER_ERROR(
+			-1001, "操作失败"),EMPTY(-1002, "商品为空");
 	;
 
 	private int state;

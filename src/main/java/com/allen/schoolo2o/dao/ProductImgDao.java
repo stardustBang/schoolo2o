@@ -22,7 +22,7 @@ public interface ProductImgDao {
 	* @Return int   
 	* @throws
 	 */
-	int  batchInsertProductImg(List<ProductImg> productImg);
+	int  batchInsertProductImg(List<ProductImg> productImgList);
 
 }
  
