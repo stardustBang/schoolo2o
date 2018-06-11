@@ -13,6 +13,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import com.allen.schoolo2o.dto.ImageHolder;
+
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
@@ -24,14 +26,14 @@ public class ImageUtil {
 
 	private static final Random r = new Random();
 
-	public static String generateThumbnail(InputStream thumbnail, String targetAddr, String fileName) {
+	public static String generateThumbnail( String targetAddr, ImageHolder imageHolder) {
 		String realFileName = getRandomFileName();
-		String extension = getFileExtension(fileName);
+		String extension = getFileExtension(imageHolder.getImageName());
 		makeDirPath(targetAddr);
 		String relativeAddr = targetAddr + realFileName + extension;
 		File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
 		try {
-			Thumbnails.of(thumbnail).size(200, 200)
+			Thumbnails.of(imageHolder.getImage()).size(200, 200)
 					.watermark(Positions.BOTTOM_LEFT, ImageIO.read(new File(basePath + "waterpage.png")), 0.25f)
 					.outputQuality(0.8f).toFile(dest);
 

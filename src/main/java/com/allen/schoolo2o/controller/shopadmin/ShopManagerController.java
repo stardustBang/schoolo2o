@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.allen.schoolo2o.dto.ImageHolder;
 import com.allen.schoolo2o.dto.ShopExecution;
 import com.allen.schoolo2o.entity.Area;
 import com.allen.schoolo2o.entity.PersonInfo;
@@ -87,9 +88,10 @@ public class ShopManagerController {
 			ShopExecution se;
 			try {
 				if (shopImg == null) {
-					se = shopService.modifyShop(shop, null, null);
+					se = shopService.modifyShop(shop, null);
 				} else {
-					se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+					ImageHolder imageHolder = new ImageHolder(shopImg.getInputStream(), shopImg.getOriginalFilename());
+					se = shopService.modifyShop(shop, imageHolder);
 				}
 				if (se.getState() == ShopStateEnum.SUCCESS.getState()) {
 					modelMap.put("success", true);
@@ -205,7 +207,8 @@ public class ShopManagerController {
 			shop.setOwner(owner);
 			ShopExecution se;
 			try {
-				se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+				ImageHolder imageHolder = new ImageHolder(shopImg.getInputStream(), shopImg.getOriginalFilename());
+				se = shopService.addShop(shop, imageHolder);
 				if (se.getState() == ShopStateEnum.CHECK.getState()) {
 					modelMap.put("success", true);
 					// 该用户可以操作的店铺列表
@@ -243,13 +246,11 @@ public class ShopManagerController {
 
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		PersonInfo user = new PersonInfo();
-		//TO be removed TODO
+		// TO be removed TODO
 		user.setUserId(1L);
 		user.setName("test");
 		rquest.getSession().setAttribute("user", user);
-		
-		
-		
+
 		user = (PersonInfo) rquest.getSession().getAttribute("user");
 		try {
 			Shop shop = new Shop();
@@ -272,7 +273,7 @@ public class ShopManagerController {
 	public Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		long shopId = HttpServletRequestUtil.getLong(request, "shopId");
-		if (shopId <=0) {
+		if (shopId <= 0) {
 			Object currentObj = request.getSession().getAttribute("currentShop");
 			if (currentObj == null) {
 				modelMap.put("redirect", true);

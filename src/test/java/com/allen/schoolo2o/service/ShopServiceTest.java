@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.allen.schoolo2o.BaseTest;
+import com.allen.schoolo2o.dto.ImageHolder;
 import com.allen.schoolo2o.dto.ShopExecution;
 import com.allen.schoolo2o.entity.Area;
 import com.allen.schoolo2o.entity.PersonInfo;
@@ -53,7 +54,8 @@ public class ShopServiceTest extends BaseTest{
 				
 		File file =new File("H:/image/pong.png");
 		InputStream is=new FileInputStream(file);
-		service.modifyShop(shop,is,file.getName());
+		ImageHolder imageHolder =new ImageHolder(is,file.getName());
+		service.modifyShop(shop,imageHolder);
 		
 	}
 	 
@@ -83,7 +85,8 @@ public class ShopServiceTest extends BaseTest{
 		shop.setEnableStatus(1);
 		File file =new File("H:/image/ping.jpg");
 		InputStream is=new FileInputStream(file);
-		service.addShop(shop, is,file.getName());
+		ImageHolder imageHolder =new ImageHolder(is,file.getName());
+		service.addShop(shop, imageHolder);
 	}
 	
 	

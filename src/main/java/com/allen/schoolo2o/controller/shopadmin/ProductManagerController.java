@@ -85,7 +85,7 @@ public class ProductManagerController {
 		return modelMap;
 	}
 
-	@RequestMapping(value = "/removeproductcategorys", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeproductcategory", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> removeproductcategory(Long productCategoryId, HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
