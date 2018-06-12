@@ -37,8 +37,10 @@ public class ProductServiceImpl implements ProductService {
 	private ProductImgDao productImgDao;
 
 	/**
-	 * 1.处理缩略图，获取缩略图相对路径并赋值给product 2.往tb_product写入商品信息，获取productId
-	 * 3.结合productId批量商品详情图 4.将商品详情图列表批量插入到tb_product_img中
+	 * 1.处理缩略图，获取缩略图相对路径并赋值给product 
+	 * 2.往tb_product写入商品信息，获取productId
+	 * 3.结合productId批量商品详情图 
+	 * 4.将商品详情图列表批量插入到tb_product_img中
 	 */
 	@Override
 	@Transactional
@@ -69,7 +71,6 @@ public class ProductServiceImpl implements ProductService {
 			// 若商品详情图不为空，则添加
 			if (imageHolderList != null && imageHolderList.size() > 0) {
 				addProductImageList(product, imageHolderList);
-
 			}
 			return new ProductExecution(ProductEnum.SUCCESS, product);
 		} else {
@@ -80,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @Description:添加商品详情图 @param product @param imageHolderList @Return
-	 * void @throws
+	 *                      void @throws
 	 */
 
 	private void addProductImageList(Product product, List<ImageHolder> imageHolderList) {
@@ -95,13 +96,12 @@ public class ProductServiceImpl implements ProductService {
 			productImg.setCreateTime(new Date());
 			productImgList.add(productImg);
 		}
-		//如果确实有图片需要添加，则执行批量添加操作
+		// 如果确实有图片需要添加，则执行批量添加操作
 		if (productImgList.size() > 0) {
 			try {
 				int result = productImgDao.batchInsertProductImg(productImgList);
-				if (result <=0) {
+				if (result <= 0) {
 					throw new ProductException("创建商品详情图片失败");
-
 				}
 			} catch (Exception e) {
 				throw new ProductException("创建商品详情图片失败" + e.toString());
