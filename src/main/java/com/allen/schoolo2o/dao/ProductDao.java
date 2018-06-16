@@ -13,6 +13,12 @@ import com.allen.schoolo2o.entity.Product;
 public interface ProductDao {
 	
 	int insertProduct(Product product);
+	
+	Product queryProductByProductId(long productId);
+	
+	int updateProduct(Product product);
+	
+	
 
 }
  

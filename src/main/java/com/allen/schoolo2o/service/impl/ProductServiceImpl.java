@@ -17,6 +17,7 @@ import com.allen.schoolo2o.dto.ImageHolder;
 import com.allen.schoolo2o.dto.ProductExecution;
 import com.allen.schoolo2o.entity.Product;
 import com.allen.schoolo2o.entity.ProductImg;
+import com.allen.schoolo2o.entity.Shop;
 import com.allen.schoolo2o.enums.ProductEnum;
 import com.allen.schoolo2o.exception.ProductException;
 import com.allen.schoolo2o.service.ProductService;
@@ -37,10 +38,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductImgDao productImgDao;
 
 	/**
-	 * 1.处理缩略图，获取缩略图相对路径并赋值给product 
-	 * 2.往tb_product写入商品信息，获取productId
-	 * 3.结合productId批量商品详情图 
-	 * 4.将商品详情图列表批量插入到tb_product_img中
+	 * 1.处理缩略图，获取缩略图相对路径并赋值给product 2.往tb_product写入商品信息，获取productId
+	 * 3.结合productId批量商品详情图 4.将商品详情图列表批量插入到tb_product_img中
 	 */
 	@Override
 	@Transactional
@@ -119,6 +118,79 @@ public class ProductServiceImpl implements ProductService {
 		String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
 		String imageAddr = ImageUtil.generateThumbnail(imageHolder, dest);
 		product.setImgAddr(imageAddr);
+	}
+
+	@Override
+	public Product getProductById(long productId) {
+		return productDao.queryProductByProductId(productId);
+	}
+
+	/*
+	 * 1.若缩略图参数有值。则处理缩略图。 若原先存在缩略图则先删除在添加新图，之后获取缩略图相对路径并赋值给product
+	 * 2.若商品详情图列表参数有值，对商品详情图片列表进行同样的操作 3.将tb_product_img下面的该商品原先的商品详情记录全部清除
+	 * 4.更新tb_product的信息
+	 */
+
+	@Override
+	@Transactional
+	public ProductExecution updateProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgList) {
+		if (product != null && product.getShop() != null && product.getShop().getShopId() != null) {
+
+			product.setLastEditTime(new Date());
+
+			if (thumbnail != null) {
+				Product tempProduct = productDao.queryProductByProductId(product.getProductId());
+				if (tempProduct.getImgAddr() != null) {
+					ImageUtil.deleteFileOrPath(tempProduct.getImgAddr());
+				}
+				addThumbnail(product, thumbnail);
+			}
+
+			if (productImgList != null && productImgList.size() > 0) {
+				deleteProductImg(product);
+				addProductImageList(product, productImgList);
+			}
+
+			try {
+				int result = productDao.updateProduct(product);
+				if (result <= 0) {
+					throw new ProductException("修改商品信息失败");
+				}
+				return new ProductExecution(ProductEnum.SUCCESS, product);
+
+			} catch (Exception e) {
+				throw new ProductException("更新商品信息失败" + e.toString());
+			}
+
+		} else {
+			return new ProductExecution(ProductEnum.EMPTY);
+		}
+
+	}
+
+	/**
+	 * @Description: @param product @param productImgList @Return void @throws
+	 */
+
+	private void deleteProductImg(Product product) {
+		List<ProductImg> productImgList = productImgDao.queryProductImgList(product.getProductId());
+		for (ProductImg productImg : productImgList) {
+			ImageUtil.deleteFileOrPath(productImg.getImgAddr());
+		}
+		productImgDao.deleteProductImgByProductId(product.getProductId());
+
+	}
+
+	/**
+	 * @Description: @param product @param thumbnail @Return void @throws
+	 */
+
+	private void addThumbnail(Product product, ImageHolder thumbnail) {
+		// 获取product图片目录的相对值路径
+		String dest = PathUtil.getShopImagePath(product.getShop().getShopId());
+		String productImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
+		product.setImgAddr(productImgAddr);
+
 	}
 
 }

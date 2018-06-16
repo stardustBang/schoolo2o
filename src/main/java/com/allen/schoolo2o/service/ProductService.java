@@ -20,5 +20,11 @@ public interface ProductService {
 	
 	ProductExecution addProduct(Product product,ImageHolder imageHolder,List<ImageHolder> imageHolderList );
 
+	
+	Product getProductById(long productId);
+	
+	ProductExecution updateProduct(Product product,ImageHolder thumbnail,List<ImageHolder> productImgList);
+
+
 }
  

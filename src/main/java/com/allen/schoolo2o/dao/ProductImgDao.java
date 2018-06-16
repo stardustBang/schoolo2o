@@ -23,6 +23,10 @@ public interface ProductImgDao {
 	* @throws
 	 */
 	int  batchInsertProductImg(List<ProductImg> productImgList);
+	
+	List<ProductImg> queryProductImgList(long productId);
+	
+	int deleteProductImgByProductId(long productId);
 
 }
  
