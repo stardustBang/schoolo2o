@@ -1,124 +1,105 @@
 $(function() {
-	var productId = getQueryString('productId');
-	var shopId = 1;
-	var infoUrl = '/schoolo2o/shop/getproductbyid?productId=' + productId;
-	var categoryUrl = '/schoolo2o/shop/getproductcategorylist';
-	var productPostUrl = '/schoolo2o/shop/modifyproduct';
-	var isEdit = false;
-	if (productId) {
-		getInfo(productId);
-		isEdit = true;
-	} else {
-		getCategory(shopId);
-		productPostUrl = '/schoolo2o/shop/addproduct';
-	}
+	//获取此店铺下的商品列表的URL
+	var listUrl = '/schoolo2o/shop/getproductlistbyshop?pageIndex=1&pageSize=999'
+	
+	//商品下架URL
+	var deleteUrl = '/schoolo2o/shop/modifyproduct';
 
-	function getInfo(id) {
-		$
-				.getJSON(
-						infoUrl,
-						function(data) {
-							if (data.success) {
-								var product = data.product;
-								$('#product-name').val(product.productName);
-								$('#product-desc').val(product.productDesc);
-								$('#priority').val(product.priority);
-								$('#normal-price').val(product.normalPrice);
-								$('#promotion-price').val(
-										product.promotionPrice);
-
-								var optionHtml = '';
-								var optionArr = data.productCategoryList;
-								var optionSelected = product.productCategory.productCategoryId;
-								optionArr
-										.map(function(item, index) {
-											var isSelect = optionSelected === item.productCategoryId ? 'selected'
-													: '';
-											optionHtml += '<option data-value="'
-													+ item.productCategoryId
-													+ '"'
-													+ isSelect
-													+ '>'
-													+ item.productCategoryName
-													+ '</option>';
-										});
-								$('#category').html(optionHtml);
-							}
-						});
-	}
-
-	function getCategory() {
-		$.getJSON(categoryUrl, function(data) {
+	
+	//获取此店铺下的商品列表
+	function getList() {
+		$.getJSON(listUrl, function(data) {
 			if (data.success) {
-				var productCategoryList = data.data;
-				var optionHtml = '';
-				productCategoryList.map(function(item, index) {
-					optionHtml += '<option data-value="'
-							+ item.productCategoryId + '">'
-							+ item.productCategoryName + '</option>';
+				var productList = data.productList;
+				var tempHtml = '';
+				productList.map(function(item, index) {
+					var textOp = "下架";
+					var contraryStatus = 0;
+					if (item.enableStatus == 0) {
+						textOp = "上架";
+						contraryStatus = 1;
+					} else {
+						contraryStatus = 0;
+					}
+					tempHtml += '' + '<div class="row row-product">'
+							+ '<div class="col-30">'
+							+ item.productName
+							+ '</div>'
+							+ '<div class="col-20">'
+							+ item.priority
+							+ '</div>'
+							+ '<div class="col-50">'
+							+ '<a href="#" class="edit" data-id="'
+							+ item.productId
+							+ '" data-status="'
+							+ item.enableStatus
+							+ '">编辑</a>'
+							+ '<a href="#" class="delete" data-id="'
+							+ item.productId
+							+ '" data-status="'
+							+ contraryStatus
+							+ '">'
+							+ textOp
+							+ '</a>'
+							+ '<a href="#" class="preview" data-id="'
+							+ item.productId
+							+ '" data-status="'
+							+ item.enableStatus
+							+ '">预览</a>'
+							+ '</div>'
+							+ '</div>';
 				});
-				$('#category').html(optionHtml);
+				$('.product-wrap').html(tempHtml);
 			}
 		});
 	}
 
-	$('.detail-img-div').on('change', '.detail-img:last-child', function() {
-		if ($('.detail-img').length < 6) {
-			$('#detail-img').append('<input type="file" class="detail-img">');
-		}
-	});
+	getList();
 
-	$('#submit').click(
-			function() {
-				var product = {};
-				product.productName = $('#product-name').val();
-				product.productDesc = $('#product-desc').val();
-				product.priority = $('#priority').val();
-				product.normalPrice = $('#normal-price').val();
-				product.promotionPrice = $('#promotion-price').val();
-				product.productCategory = {
-					productCategoryId : $('#category').find('option').not(
-							function() {
-								return !this.selected;
-							}).data('value')
-				};
-				product.productId = productId;
-
-				var thumbnail = $('#small-img')[0].files[0];
-				console.log(thumbnail);
-				var formData = new FormData();
-				formData.append('thumbnail', thumbnail);
-				$('.detail-img').map(
-						function(index, item) {
-							if ($('.detail-img')[index].files.length > 0) {
-								formData.append('productImg' + index,
-										$('.detail-img')[index].files[0]);
-							}
-						});
-				formData.append('productStr', JSON.stringify(product));
-				var verifyCodeActual = $('#j_captcha').val();
-				if (!verifyCodeActual) {
-					$.toast('请输入验证码！');
-					return;
-				}
-				formData.append("verifyCodeActual", verifyCodeActual);
-				$.ajax({
-					url : productPostUrl,
-					type : 'POST',
-					data : formData,
-					contentType : false,
-					processData : false,
-					cache : false,
-					success : function(data) {
-						if (data.success) {
-							$.toast('提交成功！');
-							$('#captcha_img').click();
-						} else {
-							$.toast('提交失败！');
-							$('#captcha_img').click();
-						}
+	function deleteItem(id, enableStatus) {
+		var product = {};
+		product.productId = id;
+		product.enableStatus = enableStatus;
+		$.confirm('确定么?', function() {
+			$.ajax({
+				url : deleteUrl,
+				type : 'POST',
+				data : {
+					productStr : JSON.stringify(product),
+					statusChange : true
+				},
+				dataType : 'json',
+				success : function(data) {
+					if (data.success) {
+						$.toast('操作成功！');
+						getList();
+					} else {
+						$.toast('操作失败！');
 					}
-				});
+				}
 			});
+		});
+	}
 
+	$('.product-wrap')
+			.on(
+					'click',
+					'a',
+					function(e) {
+						var target = $(e.currentTarget);
+						if (target.hasClass('edit')) {
+							window.location.href = '/schoolo2o/shopadmin/productoperation?productId='
+									+ e.currentTarget.dataset.id;
+						} else if (target.hasClass('delete')) {
+							deleteItem(e.currentTarget.dataset.id,
+									e.currentTarget.dataset.status);
+						} else if (target.hasClass('preview')) {
+							window.location.href = '/schoolo2o/frontend/productdetail?productId='
+									+ e.currentTarget.dataset.id;
+						}
+					});
+
+	$('#new').click(function() {
+		window.location.href = '/schoolo2o/shopadmin/productoperation';
+	});
 });

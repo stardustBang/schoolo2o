@@ -32,6 +32,7 @@ public class ShopServiceTest extends BaseTest{
 	
 	
 	@Test
+	@Ignore
 	public void testGetShopList() {
 		Shop shop=new Shop();
 		ShopCategory shopCategory =new ShopCategory();
@@ -44,15 +45,15 @@ public class ShopServiceTest extends BaseTest{
 	}
 	
 	@Test
-	@Ignore
+	
 	public void testUpdateShop() throws FileNotFoundException {
 		Shop shop=new Shop();
 		
-		shop.setShopId(2L);
+		shop.setShopId(1L);
 		
 		shop.setShopName("正式的店铺");
 				
-		File file =new File("H:/image/pong.png");
+		File file =new File("H:/image/110.jpg");
 		InputStream is=new FileInputStream(file);
 		ImageHolder imageHolder =new ImageHolder(is,file.getName());
 		service.modifyShop(shop,imageHolder);

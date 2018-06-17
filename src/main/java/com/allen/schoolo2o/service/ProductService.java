@@ -25,6 +25,8 @@ public interface ProductService {
 	
 	ProductExecution updateProduct(Product product,ImageHolder thumbnail,List<ImageHolder> productImgList);
 
+	ProductExecution getProductList(Product productCondition,int pageIndex,int pageSize);
+	
 
 }
  

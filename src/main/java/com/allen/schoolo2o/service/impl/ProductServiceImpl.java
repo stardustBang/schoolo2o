@@ -22,6 +22,7 @@ import com.allen.schoolo2o.enums.ProductEnum;
 import com.allen.schoolo2o.exception.ProductException;
 import com.allen.schoolo2o.service.ProductService;
 import com.allen.schoolo2o.util.ImageUtil;
+import com.allen.schoolo2o.util.PageCalculator;
 import com.allen.schoolo2o.util.PathUtil;
 
 /**
@@ -191,6 +192,17 @@ public class ProductServiceImpl implements ProductService {
 		String productImgAddr = ImageUtil.generateThumbnail(thumbnail, dest);
 		product.setImgAddr(productImgAddr);
 
+	}
+
+	@Override
+	public ProductExecution getProductList(Product productCondition, int pageIndex, int pageSize) {
+		int rowIndex=PageCalculator.calculatorRowIndex(pageIndex, pageSize);
+		List<Product> productList=productDao.queryProductList(productCondition, rowIndex, pageSize);
+		int count=productDao.queryProductCount(productCondition);
+		ProductExecution pe=new ProductExecution();
+		pe.setCount(count);
+		pe.setProductList(productList);
+		return pe;
 	}
 
 }
