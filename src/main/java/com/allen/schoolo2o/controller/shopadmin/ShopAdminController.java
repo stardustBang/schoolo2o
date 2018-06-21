@@ -44,6 +44,10 @@ public class ShopAdminController {
 	public String productOpertaion() {
 		return "shop/productoperation";
 	}
+	
+	
+
+
 
 
 

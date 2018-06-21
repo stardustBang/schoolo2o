@@ -42,6 +42,8 @@ public interface ProductDao {
 	
 	int updateProduct(Product product);
 	
+	int updateProductCategoryToNull(long productCategoryId);
+	
 	
 
 }

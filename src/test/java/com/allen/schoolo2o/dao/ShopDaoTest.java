@@ -25,21 +25,27 @@ public class ShopDaoTest extends BaseTest{
 	@Test
 	public void testQueryListAndCount() {
 		Shop shop=new Shop();
-		PersonInfo owner=new PersonInfo();
+		ShopCategory childCategory =new ShopCategory();
+		ShopCategory parentCategory =new ShopCategory();
+		parentCategory.setShopCategoryId(1L);
+		childCategory.setParent(parentCategory);
+		shop.setShopCategory(childCategory);
+		/*PersonInfo owner=new PersonInfo();
 		owner.setUserId(1L);
-		shop.setOwner(owner);
+		shop.setOwner(owner);*/
 	/*	List<Shop> shopList=dao.queryShopList(shop, 1, 3);
 		System.out.println(shopList.size());*/
-		int count=dao.queryShopCount(shop);
+		/*int count=dao.queryShopCount(shop);
 		System.out.println(count);
 		
 		ShopCategory shopCategory =new ShopCategory();
 		shopCategory.setShopCategoryId(3L);
-		shop.setShopCategory(shopCategory);
+		shop.setShopCategory(shopCategory);*/
 		
-		List<Shop> shopList=dao.queryShopList(shop, 0, 3);
+		List<Shop> shopList=dao.queryShopList(shop, 0, 5);
 		System.out.println(shopList.size());
-		
+		int count=dao.queryShopCount(shop);
+		System.out.println(count);
 	}
 	
 	@Test

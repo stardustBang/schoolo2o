@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,7 @@ public class ProductDaoTest extends BaseTest{
 	private ProductDao dao;
 	
 	@Test
+	@Ignore
 	public void testQueryProductListAndCount() {
 		Product product=new Product();
 		List<Product> productList=dao.queryProductList(product, 0, 2);
@@ -33,6 +35,14 @@ public class ProductDaoTest extends BaseTest{
 		int result=dao.queryProductCount(product);
 		assertEquals(1, result);
 	}
+	
+	
+	@Test
+	public void testUpdateProductCategoryToNull() {
+		int result=dao.updateProductCategoryToNull(1L);
+		assertEquals(2, result);
+	}
+	
 
 }
  

@@ -12,15 +12,15 @@ public class HeadLine {
 	
 	private String lineName;
 	
-	//����
+	//头条链接
 	private String lineLink;
 	
-	//ͼƬ
+	//头条图片
 	private String lineImg;
 
 	private Integer priority;
 	
-	//0:可用  1.不可用
+	//0:不可用    1.可用
 	private Integer enableStatus;
 	
 	private Date createTime;
