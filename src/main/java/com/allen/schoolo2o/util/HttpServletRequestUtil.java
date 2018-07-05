@@ -19,7 +19,8 @@ public class HttpServletRequestUtil {
 
 	public static long getLong(HttpServletRequest request, String key) {
 		try {
-			return Long.valueOf(request.getParameter(key));
+			long result= Long.valueOf(request.getParameter(key));
+			return result;
 
 		} catch (Exception e) {
 			return -1L;

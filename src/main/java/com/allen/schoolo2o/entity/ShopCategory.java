@@ -26,6 +26,8 @@ public class ShopCategory {
 	
 	private ShopCategory parent;
 
+	
+
 	public Long getShopCategoryId() {
 		return shopCategoryId;
 	}
