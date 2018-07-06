@@ -41,9 +41,9 @@ public class ShopListController {
 	@Autowired
 	private AreaService areaService;
 
-	@RequestMapping(value = "/listshoppageinfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/listshopspageinfo", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> listShopPageInfo(HttpServletRequest request) {
+	public Map<String, Object> listShopsPageInfo(HttpServletRequest request) {
 
 		Map<String, Object> modelMap = new HashMap<>();
 		long parentId = HttpServletRequestUtil.getLong(request, "parentId");

@@ -11,9 +11,9 @@ public class PathUtil {
 		String os=System.getProperty("os.name");
 		String basePath="";
 		if(os.toLowerCase().startsWith("win")) {
-			basePath="H:/image/";
+			basePath="H:/image";
 		}else {
-			basePath ="/home/o2o/image/";
+			basePath ="/home/o2o/image";
 		}
 		basePath=basePath.replace("/", seperator);
 		
@@ -22,7 +22,7 @@ public class PathUtil {
 	
 	public static String getShopImagePath(long shopId) {
 		
-		String imagePath="upload/item/shop/"+shopId+"/";
+		String imagePath="/upload/item/shop/"+shopId+"/";
 		return imagePath.replace("/", seperator);
 	}
 
